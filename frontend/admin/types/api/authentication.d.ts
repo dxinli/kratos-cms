@@ -24,6 +24,7 @@ interface User {
   password?: string;
   createTime?: string;
   updateTime?: string;
+  homePath?: string;
 }
 
 interface LoginRequest {

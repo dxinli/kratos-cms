@@ -1,7 +1,7 @@
 data:
   database:
     driver: "postgres"
-    source: "host=localhost port=5432 user=postgres password=@Abcd123456 dbname=kratos_cms sslmode=disable"
+    source: "host=localhost port=5432 user=sakura password=sakura dbname=why3rt sslmode=disable search_path=cms"
     migrate: true
     debug: false
     max_idle_connections: 25

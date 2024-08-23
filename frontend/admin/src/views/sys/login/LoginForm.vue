@@ -72,6 +72,8 @@
   import { useUserStore } from '/@/store/modules/user';
   import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import { useRoute, useRouter } from 'vue-router';
+  import { PageEnum } from '/@/enums/pageEnum';
 
   const ACol = Col;
   const ARow = Row;
@@ -100,6 +102,9 @@
 
   const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN);
 
+  const route = useRoute();
+  const router = useRouter();
+
   async function handleLogin() {
     const data = await validForm();
     if (!data) return;
@@ -116,6 +121,15 @@
           description: `${t('sys.login.loginSuccessDesc')}: ${userInfo.nickName}`,
           duration: 3,
         });
+        const redirectPath = route.query.redirect as string;
+        // 如果存在重定向路径，则进行重定向
+        if (redirectPath) {
+          await router.push(redirectPath);
+        } else {
+          // 如果没有指定重定向路径，则默认跳转到某个页面
+          const homePath = userInfo.homePath;
+          await router.push(homePath ?? PageEnum.BASE_HOME);
+        }
       }
     } catch (error) {
       const { response } = error || {};

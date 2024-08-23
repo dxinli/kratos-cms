@@ -43,7 +43,7 @@ export function useFormRules(formData?: Recordable) {
 
   const getAccountFormRule = computed(() => createRule(t('sys.login.accountPlaceholder')));
   const getPasswordFormRule = computed(() => createRule(t('sys.login.passwordPlaceholder')));
-  const getSmsFormRule = computed(() => createRule(t('sys.login.smsPlaceholder')));
+  // const getSmsFormRule = computed(() => createRule(t('sys.login.smsPlaceholder')));
   const getMobileFormRule = computed(() => createRule(t('sys.login.mobilePlaceholder')));
 
   const validatePolicy = async (_: RuleObject, value: boolean) => {
@@ -65,11 +65,11 @@ export function useFormRules(formData?: Recordable) {
   const getFormRules = computed((): { [k: string]: ValidationRule | ValidationRule[] } => {
     const accountFormRule = unref(getAccountFormRule);
     const passwordFormRule = unref(getPasswordFormRule);
-    const smsFormRule = unref(getSmsFormRule);
+    // const smsFormRule = unref(getSmsFormRule);
     const mobileFormRule = unref(getMobileFormRule);
 
     const mobileRule = {
-      sms: smsFormRule,
+      // sms: smsFormRule,
       mobile: mobileFormRule,
     };
     switch (unref(currentState)) {
