@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/tx7do/go-utils/trans"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -83,4 +82,18 @@ func (s *UserService) DeleteUser(ctx context.Context, req *v1.DeleteUserRequest)
 	}
 
 	return &emptypb.Empty{}, nil
+}
+
+func (s *UserService) VerifyPassword(ctx context.Context, req *v1.VerifyPasswordRequest) (*v1.VerifyPasswordResponse, error) {
+	ok, err := s.uc.VerifyPassword(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	result := &v1.VerifyPasswordResponse{}
+	if !ok {
+		result.Result = v1.VerifyPasswordResult_WRONG_PASSWORD
+	}
+	result.Result = v1.VerifyPasswordResult_SUCCESS
+
+	return result, nil
 }
