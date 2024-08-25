@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	v1 "kratos-cms/api/gen/go/front/service/v1"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -14,7 +15,7 @@ import (
 )
 
 type AuthenticationService struct {
-	adminV1.AuthenticationServiceHTTPServer
+	v1.UnimplementedAuthenticationServiceServer
 
 	uc   userV1.UserServiceClient
 	utuc *cache.UserToken
@@ -29,6 +30,22 @@ func NewAuthenticationService(logger log.Logger, uc userV1.UserServiceClient, ut
 		uc:   uc,
 		utuc: utuc,
 	}
+}
+
+// Register 注册
+func (s *AuthenticationService) Register(ctx context.Context, req *adminV1.RegisterRequest) (*emptypb.Empty, error) {
+	_, err := s.uc.CreateUser(ctx, &userV1.CreateUserRequest{
+		User: &userV1.User{
+			UserName: &req.Username,
+			Password: &req.Password,
+			Email:    &req.Email,
+			NickName: &req.NickName,
+		},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &emptypb.Empty{}, nil
 }
 
 // Login 登陆

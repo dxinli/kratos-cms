@@ -37,6 +37,29 @@ service AuthenticationService {
       get: "/admin/v1/me"
     };
   }
+
+  // 用户注册
+  rpc Register (RegisterRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/admin/v1/register"
+      body: "*"
+    };
+  }
+}
+
+// 注册用户 - 请求
+message RegisterRequest {
+  string username = 1 [
+    json_name = "username",
+    (google.api.field_behavior) = REQUIRED
+  ]; // 用户名，必选项。
+
+  string password = 2 [
+    json_name = "password",
+    (google.api.field_behavior) = REQUIRED
+  ]; // 用户的密码，必选项。
+  string nickName = 3;
+  string email = 4;
 }
 
 // 用户后台登出 - 请求

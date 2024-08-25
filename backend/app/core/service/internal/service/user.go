@@ -97,3 +97,7 @@ func (s *UserService) VerifyPassword(ctx context.Context, req *v1.VerifyPassword
 
 	return result, nil
 }
+
+func (s *UserService) GetUserByUserName(ctx context.Context, req *v1.GetUserByUserNameRequest) (*v1.User, error) {
+	return s.uc.GetUserByUserName(ctx, req.GetUserName())
+}

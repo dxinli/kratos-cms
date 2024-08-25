@@ -31,6 +31,7 @@ import (
 func newRestWhiteListMatcher() selector.MatchFunc {
 	whiteList := make(map[string]bool)
 	whiteList[adminV1.OperationAuthenticationServiceLogin] = true
+	whiteList[adminV1.OperationAuthenticationServiceRegister] = true
 	return func(ctx context.Context, operation string) bool {
 		if _, ok := whiteList[operation]; ok {
 			return false
