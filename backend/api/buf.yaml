@@ -8,6 +8,7 @@ deps:
   - buf.build/googleapis/googleapis
   - buf.build/kratos/apis
   - buf.build/tx7do/pagination
+  - buf.build/bufbuild/protovalidate
 lint:
   use:
     - DEFAULT

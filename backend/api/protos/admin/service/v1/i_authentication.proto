@@ -6,6 +6,7 @@ import "gnostic/openapi/v3/annotations.proto";
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
+import "buf/validate/validate.proto";
 
 import "user/service/v1/user.proto";
 
@@ -51,7 +52,10 @@ service AuthenticationService {
 message RegisterRequest {
   string username = 1 [
     json_name = "username",
-    (google.api.field_behavior) = REQUIRED
+    (google.api.field_behavior) = REQUIRED,
+    (buf.validate.field).string = {
+
+    }
   ]; // 用户名，必选项。
 
   string password = 2 [

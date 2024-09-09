@@ -132,7 +132,7 @@
         }
       }
     } catch (error) {
-      const { response } = error || {};
+      const { response } = (error as { response: any }) || {};
       const msg: string = response?.data?.message ?? '';
       const reason: string = response?.data?.reason ?? '';
       const reasonMessage = t('sys.api.' + reason);
